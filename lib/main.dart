@@ -1,58 +1,32 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:flutter_frontend/pages/search_page.dart';
-import 'package:flutter_frontend/pages/search_result_page.dart';
-import 'package:flutter_frontend/pages/seat_plan_page.dart';
-import 'package:flutter_frontend/providers/app_data_provider.dart';
-import 'package:flutter_frontend/utils/constants.dart';
 import 'package:provider/provider.dart';
+import 'config/app_theme.dart';
+import 'providers/app_provider.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    create: (context) => AppDataProvider(),
-    child: const MyApp()
-  ));
-=======
-import 'pages/search_page.dart';
-
-void main() {
-  runApp(const MyApp());
->>>>>>> bf99582 (first commit)
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => AppProvider(),
+      child: const BusGoApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class BusGoApp extends StatelessWidget {
+  const BusGoApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final appProvider = Provider.of<AppProvider>(context);
+
     return MaterialApp(
-<<<<<<< HEAD
+      title: 'BusGo — Bus Reservation',
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: Colors.lightGreen,
-        brightness: Brightness.light,
-      ),
-      home: const SearchPage(),
-      routes: {
-        routeNameHome: (context) => const SearchPage(),
-        routeNameSearchResultPage: (context) => const SearchResultPage(),
-        routeNameSeatPlanPage: (context) => const SeatPlanPage(),
-      },
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: appProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      home: const SplashScreen(),
     );
   }
 }
-=======
-      title: 'Bus Seat Reservation',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const SearchPage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-
->>>>>>> bf99582 (first commit)

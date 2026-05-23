@@ -39,8 +39,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void _navigateToLogin() {
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
-        pageBuilder: (_, __, ___) => const LoginScreen(),
-        transitionsBuilder: (_, animation, __, child) {
+        pageBuilder: (context, a1, a2) => const LoginScreen(),
+        transitionsBuilder: (context, animation, a2, child) {
           return FadeTransition(opacity: animation, child: child);
         },
         transitionDuration: const Duration(milliseconds: 400),
@@ -88,50 +88,52 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   final page = _pages[index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Icon
-                        Container(
-                          width: 140,
-                          height: 140,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: page.iconBgColors,
-                            ),
-                            borderRadius: BorderRadius.circular(40),
-                            boxShadow: [
-                              BoxShadow(
-                                color: page.iconBgColors.first.withValues(alpha: 0.3),
-                                blurRadius: 24,
-                                offset: const Offset(0, 12),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Icon
+                          Container(
+                            width: 140,
+                            height: 140,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: page.iconBgColors,
                               ),
-                            ],
+                              borderRadius: BorderRadius.circular(40),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: page.iconBgColors.first.withValues(alpha: 0.3),
+                                  blurRadius: 24,
+                                  offset: const Offset(0, 12),
+                                ),
+                              ],
+                            ),
+                            child: Icon(
+                              page.icon,
+                              size: 64,
+                              color: Colors.white,
+                            ),
                           ),
-                          child: Icon(
-                            page.icon,
-                            size: 64,
-                            color: Colors.white,
+                          const SizedBox(height: 48),
+                          Text(
+                            page.title,
+                            style: theme.textTheme.displaySmall,
+                            textAlign: TextAlign.center,
                           ),
-                        ),
-                        const SizedBox(height: 48),
-                        Text(
-                          page.title,
-                          style: theme.textTheme.displaySmall,
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          page.subtitle,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.textTheme.bodySmall?.color,
-                            height: 1.6,
+                          const SizedBox(height: 16),
+                          Text(
+                            page.subtitle,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.textTheme.bodySmall?.color,
+                              height: 1.6,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },

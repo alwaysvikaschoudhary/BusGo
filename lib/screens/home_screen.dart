@@ -23,17 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
   DateTime? _selectedDate;
   int _passengerCount = 1;
 
-  final List<Widget> _screens = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _screens.addAll([
-      _buildHomeContent(),
-      const BookingHistoryScreen(),
-      const ProfileScreen(),
-    ]);
-  }
 
   void _selectDate() async {
     final picked = await showDatePicker(

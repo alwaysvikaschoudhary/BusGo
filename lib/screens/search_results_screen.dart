@@ -212,7 +212,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     return ListView.builder(
       padding: const EdgeInsets.all(20),
       itemCount: 4,
-      itemBuilder: (_, __) => const BusCardShimmer(),
+      itemBuilder: (context, index) => const BusCardShimmer(),
     );
   }
 
