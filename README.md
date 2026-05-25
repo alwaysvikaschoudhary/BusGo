@@ -73,16 +73,62 @@ Whether you're building a commercial booking platform or a large-scale public tr
 
 - **API Base URL**: Currently hardcoded/mocked. Will be configurable via environment variables in future releases.
 
-## Project Structure
+## Screen Flow
+
+```mermaid
+graph LR
+    A[Splash] --> B[Onboarding]
+    B --> C[Login/Signup]
+    C --> D[Home]
+    
+    D --> E[Search Results]
+    E --> F[Bus Details]
+    F --> G[Seat Selection]
+    G --> H[Passenger Details]
+    H --> I[Payment]
+    I --> J[Confirmation]
+    
+    D --> K[Booking History]
+    D --> L[Profile/Settings]
+```
+
+## Architecture & Project Structure
+
+The application follows a clean, modular architecture utilizing the **Provider** pattern for state management. This separation of concerns ensures that the UI components are decoupled from the business logic and data layers.
+
+### Core Layers
+
+1. **Presentation Layer (`screens/`, `widgets/`)**:
+   - Contains all the UI components.
+   - Listens to Providers and reconstructs the UI when state changes.
+   - Stateless and Stateful widgets designed for reusability.
+
+2. **State Management Layer (`providers/`)**:
+   - Acts as the bridge between the UI and data layer.
+   - Handles business logic, API calls (or mock data logic for now), and state updates.
+   - E.g., `BusProvider` handles search and filtering, `BookingProvider` manages cart and seat selections.
+
+3. **Data Layer (`models/`)**:
+   - Strongly-typed Dart classes representing entities like `Bus`, `Seat`, `Passenger`, and `Booking`.
+   - Ensures data integrity across the application.
+
+4. **Utilities & Shared (`utils/`)**:
+   - Common helper functions, theme constants (colors, fonts), and static data.
+
+### Directory Tree
 
 ```text
 lib/
-├── main.dart             # Application entry point
-├── screens/              # UI Screens (Home, Search, Booking, etc.)
-├── widgets/              # Reusable UI components
-├── providers/            # State management classes
-├── models/               # Data models
-└── utils/                # Helper functions and constants
+├── main.dart             # Application entry point & Provider initialization
+├── models/               # Data entities (e.g., bus.dart, user.dart)
+├── providers/            # State management classes (e.g., auth_provider.dart)
+├── screens/              # Top-level UI Screens
+│   ├── auth/             # Login and Registration flows
+│   ├── booking/          # Search, Seat Selection, Payment
+│   ├── home/             # Main dashboard
+│   └── profile/          # User settings and history
+├── utils/                # Constants, formatters, and helpers
+└── widgets/              # Reusable UI elements (Buttons, Cards, Inputs)
 ```
 
 ## API Documentation
