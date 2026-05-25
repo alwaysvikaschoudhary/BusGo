@@ -99,36 +99,70 @@ The application follows a clean, modular architecture utilizing the **Provider**
 ### Core Layers
 
 1. **Presentation Layer (`screens/`, `widgets/`)**:
-   - Contains all the UI components.
+   - Contains all the UI screens and reusable components.
    - Listens to Providers and reconstructs the UI when state changes.
-   - Stateless and Stateful widgets designed for reusability.
+   - Styled with consistent spacing, soft shadows, and Material 3 design systems.
 
 2. **State Management Layer (`providers/`)**:
-   - Acts as the bridge between the UI and data layer.
-   - Handles business logic, API calls (or mock data logic for now), and state updates.
-   - E.g., `BusProvider` handles search and filtering, `BookingProvider` manages cart and seat selections.
+   - Bridge between the UI and mock data.
+   - Handles global application state (like booking cart, theme status, passenger details).
 
-3. **Data Layer (`models/`)**:
-   - Strongly-typed Dart classes representing entities like `Bus`, `Seat`, `Passenger`, and `Booking`.
-   - Ensures data integrity across the application.
+3. **Data Layer (`models/`, `data/`)**:
+   - Strongly-typed Dart models representing `Bus`, `Seat`, `Passenger`, `Booking`, etc.
+   - Includes static rich mock data generator simulating API responses for all flows.
 
-4. **Utilities & Shared (`utils/`)**:
-   - Common helper functions, theme constants (colors, fonts), and static data.
+4. **Configuration & Design (`config/`)**:
+   - App theme configuration (light and dark mode theme schemas), color system palettes, and navigation routes.
 
 ### Directory Tree
 
 ```text
 lib/
-├── main.dart             # Application entry point & Provider initialization
-├── models/               # Data entities (e.g., bus.dart, user.dart)
-├── providers/            # State management classes (e.g., auth_provider.dart)
-├── screens/              # Top-level UI Screens
-│   ├── auth/             # Login and Registration flows
-│   ├── booking/          # Search, Seat Selection, Payment
-│   ├── home/             # Main dashboard
-│   └── profile/          # User settings and history
-├── utils/                # Constants, formatters, and helpers
-└── widgets/              # Reusable UI elements (Buttons, Cards, Inputs)
+├── main.dart                    # App entry, theme, routing
+├── config/
+│   ├── app_theme.dart           # Material 3 light & dark themes
+│   ├── app_colors.dart          # Color palette
+│   └── app_routes.dart          # Named route definitions
+├── models/
+│   ├── bus.dart                 # Enhanced Bus model
+│   ├── seat.dart                # Seat model with enums
+│   ├── passenger.dart           # Passenger model
+│   ├── booking.dart             # Booking model
+│   └── route_info.dart          # Route/city model
+├── data/
+│   └── mock_data.dart           # Rich mock data for all screens
+├── screens/
+│   ├── splash_screen.dart       # Animated splash
+│   ├── onboarding_screen.dart   # 3-page onboarding
+│   ├── login_screen.dart        # Login/signup with tabs
+│   ├── home_screen.dart         # Search, featured routes, quick actions
+│   ├── search_results_screen.dart # Bus list with filters
+│   ├── bus_details_screen.dart  # Full bus info
+│   ├── seat_selection_screen.dart # Visual seat layout
+│   ├── passenger_details_screen.dart # Form with validation
+│   ├── payment_screen.dart      # Payment method selection
+│   ├── booking_confirmation_screen.dart # Success with ticket
+│   ├── booking_history_screen.dart # Past bookings list
+│   └── profile_screen.dart      # Settings & profile
+├── widgets/
+│   ├── common/
+│   │   ├── app_button.dart      # Reusable CTA button
+│   │   ├── app_card.dart        # Elevated card wrapper
+│   │   ├── app_text_field.dart  # Styled text input
+│   │   ├── loading_shimmer.dart # Skeleton loader
+│   │   ├── empty_state.dart     # Empty state illustration
+│   │   └── section_header.dart  # Section title + action
+│   ├── home/
+│   │   ├── search_card.dart     # Route search widget
+│   │   ├── featured_route_card.dart # Popular route card
+│   │   └── quick_action_chip.dart # Quick action buttons
+│   ├── search/
+│   │   ├── bus_card.dart        # Bus result card
+│   │   └── filter_bar.dart      # Filter chips row
+│   └── seat/
+│       └── seat_widget.dart     # Individual seat tile
+└── providers/
+    └── app_provider.dart        # App-wide state management
 ```
 
 ## API Documentation
